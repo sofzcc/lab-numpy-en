@@ -1,72 +1,96 @@
 #1. Import the NUMPY package under the name np.
 
-#[your code here]
-
+import numpy as np
 
 #2. Print the NUMPY version and the configuration.
 
-#[your code here]
+print(np.version.version)
 
 
 #3. Generate a 2x3x5 3-dimensional array with random values. Assign the array to variable "a"
 # Challenge: there are at least three easy ways that use numpy to generate random arrays. How many ways can you find?
 
-#[your code here]
+a = np.random.random((2, 3, 5))
 
 #4. Print a.
 
-#[your code here]
+print(a)
+
 #5. Create a 5x2x3 3-dimensional array with all values equaling 1.
+
+b = np.ones((5,2,3))
+
 #Assign the array to variable "b"
 
-#[your code here]
-
 #6. Print b.
+print(b)
 
-#[your code here]
 
 #7. Do a and b have the same size? How do you prove that in Python code?
+# Yes, both arrays have the same size.
 
-#[your code here]
+equal_size = (a.size == b.size)
+
+print("Array a size:", a.size)
+print("Array b size:", b.size)
+print("Do a and b have the same size?", equal_size)
+
+
 
 #8. Are you able to add a and b? Why or why not?
+#It's not possible to add these two arrays because they have different shapes. 
 
-#[your code here]
+try:
+        ab = np.add(a,b)
+except:
+        print("It's not possible to add the arrays.")
 
 
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
 
-#[your code here]
+c = np.transpose(b,(1, 2, 0))
 
 #10. Try to add a and c. Now it should work. Assign the sum to varialbe "d". But why does it work now?
 
-#[your code here]
+try:
+        d = np.add(a,c)
+except:
+        print("It's not possible to add the arrays.")
 
 #11. Print a and d. Notice the difference and relation of the two array in terms of the values? Explain.
 
-#[your code here]
+print(a)
+print(d)
+
+#The values of array d equal to the values in array a plus 1. Each value is the result of the addition of the values in a with the values in c
 
 
 #12. Multiply a and c. Assign the result to e.
 
-#[your code here]
+e = np.multiply(a,c)
 
 
 #13. Does e equal to a? Why or why not?
+#Yes, e and a are equal since the values in c are all 1, when multiplying values in a by the values in c, the result is the same as a. 
 
-#[your code here]
-
+print(a)
+print(e)
 
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
 
-#[your code here]
+d_max = np.max(d)
+d_min = np.min(d)
+d_mean = np.mean(d)
+
+print(f"The maximum is: {d_max}")
+print(f"The minimum is: {d_min}")
+print(f"The mean is: {d_mean}")
 
 
 #15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
 
-#[your code here]
-
+f = np.empty((2,3,5))
 
 """
 #16. Populate the values in f. For each value in d, if it's larger than d_min but smaller than d_mean, assign 25 to the corresponding value in f.
@@ -78,8 +102,19 @@ In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
 """
 
-#[your code here]
-
+for i in range(d.shape[0]):   #iterates over the first layer of the array
+    for j in range(d.shape[1]):   #iterates over the second layer of the array
+        for k in range(d.shape[2]):    #iterates over the third layer of the array
+            if d[i, j, k] == d_min:   
+                f[i, j, k] = 0         #assigns 0 if the value in d is equal to d_min
+            elif d[i, j, k] == d_max:
+                f[i, j, k] = 100        #assigns 100 if the value in d is equal to d_max
+            elif d[i, j, k] == d_mean:
+                f[i, j, k] = 50         #assigns 50 if the value in d is equal to d_mean
+            elif d_min < d[i, j, k] < d_mean:
+                f[i, j, k] = 25         #assigns 25 if the value in d is larger than d_min and smaller than d_mean
+            elif d_mean < d[i, j, k] < d_max:
+                f[i, j, k] = 75         #assigns 75 if the value in d is larger than d_mean and smaller than d_max
 
 
 
@@ -103,8 +138,15 @@ array([[[ 75.,  75.,  75.,  25.,  75.],
         [ 75.,  75.,  75.,  75.,  75.],
         [ 25.,  75.,   0.,  75.,  75.]]])
 """
+print("Array d is:")
+print(d)
 
-#[your code here]
+print(f"\nThe maximum is: {d_max}")
+print(f"The minimum is: {d_min}")
+print(f"The mean is: {d_mean}")
+
+print("\nArray f is:")
+print(f)
 
 
 
@@ -121,4 +163,16 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
 Again, you don't need Numpy in this question.
 """
 
-#[your code here]
+for i in range(d.shape[0]):   #iterates over the first layer of the array
+    for j in range(d.shape[1]):   #iterates over the second layer of the array
+        for k in range(d.shape[2]):    #iterates over the third layer of the array
+            if d[i, j, k] == d_min:   
+                f[i, j, k] = 'A'         #assigns 0 if the value in d is equal to d_min
+            elif d[i, j, k] == d_max:
+                f[i, j, k] = 'E'        #assigns 100 if the value in d is equal to d_max
+            elif d[i, j, k] == d_mean:
+                f[i, j, k] = "C"         #assigns 50 if the value in d is equal to d_mean
+            elif d_min < d[i, j, k] < d_mean:
+                f[i, j, k] = "B"         #assigns 25 if the value in d is larger than d_min and smaller than d_mean
+            elif d_mean < d[i, j, k] < d_max:
+                f[i, j, k] = 'D'         #assigns 75 if the value in d is larger than d_mean and smaller than d_max
